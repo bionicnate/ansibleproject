@@ -22,13 +22,10 @@ In this project you will use Ansible to automate the setup and deployment of a m
 - **Kubernetes Deployments:**  
     Using Ansible, deploy application services into your K3s cluster via Kubernetes manifest files. 
     ```
-    ansible-playbook -i inventory.yml k3smanifests.yml --ask-become-pass --limit vm -e "vm_ip=34.171.26.52"
+    ansible-playbook -i inventory.yml deploymanifests.yaml 
     ```
     ```
-    ansible-playbook -i inventory.yml deploymanifests.yaml --ask-become-pass --limit vm -e "vm_ip=34.171.26.52"
-    ```
-    ```
-    ansible-playbook -i inventory.yml verifyk3s.yml --ask-become-pass --limit vm -e "vm_ip=34.171.26.52" 
+    ansible-playbook -i inventory.yml verifyk3s.yml 
     OR
     sudo kubectl get svc -A
     docker ps
@@ -37,7 +34,7 @@ In this project you will use Ansible to automate the setup and deployment of a m
 - **Cluster Management Verification:**  
     Deploy a Portainer agent inside the K3s Kubernetes cluster and verify that you can manage the cluster through Portainer.
     ```
-    ansible-playbook -i inventory.yml deployportainer.yaml --ask-become-pass --limit vm -e "vm_ip=34.171.26.52" 
+    ansible-playbook -i inventory.yml deployportainer.yaml
     ```
 
 
