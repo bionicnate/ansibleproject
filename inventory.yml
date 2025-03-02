@@ -3,9 +3,9 @@ all:
     local:
       ansible_host: localhost
       ansible_connection: local
-      ansible_user: devops-23
+      ansible_user: "{{ ansible_localuser }}"
     vm:
       ansible_host: "{{ vm_ip }}" #34.171.26.52
       ansible_conection: ssh
-      ansible_user: nsvenkerud
+      ansible_user: "{{ ansible_vmuser }}"
       ansible_become_user: root
