@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre-web-service
+  namespace: project
+spec:
+  selector:
+    app: calibre-web
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+      nodePort: 30083  # Choose a port within 30000-32767 range

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: it-tools-service
+  namespace: project
+spec:
+  selector:
+    app: it-tools
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 80
+  type: NodePort # Or ClusterIP if you don't need external access directly

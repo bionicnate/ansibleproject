@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calibre-web
+  namespace: project
+  labels:
+    app: calibre-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calibre-web
+  template:
+    metadata:
+      labels:
+        app: calibre-web
+    spec:
+      containers:
+        - name: calibre-web
+          image: lscr.io/linuxserver/calibre-web:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Etc/UTC"
+            - name: DOCKER_MODS
+              value: "linuxserver/mods:universal-calibre"
+            - name: OAUTHLIB_RELAX_TOKEN_SCOPE
+              value: "1"
+          volumeMounts:
+            - mountPath: /config
+              name: calibre-web-config
+            - mountPath: /books
+              name: calibre-library
+          ports:
+            - containerPort: 8083
+          resources: # Resource Limits Added
+            limits:
+              cpu: "1" # 1 CPU core
+              memory: "2Gi" # 2 Gigabytes of memory
+            requests:
+              cpu: "500m" # 500 millicores
+              memory: "1Gi" # 1 Gigabyte of memory
+      volumes:
+        - name: calibre-web-config
+          hostPath:
+            path: /path/to/calibre-web/data
+        - name: calibre-library
+          hostPath:
+            path: /path/to/calibre/library

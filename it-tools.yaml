@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-tools-deployment
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: it-tools
+  template:
+    metadata:
+      labels:
+        app: it-tools
+    spec:
+      containers:
+      - name: it-tools
+        image: corentinth/it-tools:latest
+        ports:
+        - containerPort: 80
+        resources: # Resource Limits Added
+          limits:
+            cpu: "500m" # 500 millicores
+            memory: "1Gi" # 1 Gigabyte of memory
+          requests:
+            cpu: "250m" # 250 millicores
+            memory: "512Mi" # 512 Megabytes of memory
+      restartPolicy: Always

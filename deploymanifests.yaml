@@ -1,0 +1,45 @@
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Copy Calibre Web service file
+      copy:
+        src: calibreweb-service.yaml
+        dest: /tmp/calibreweb-service.yaml
+        mode: '0644'
+
+    - name: Copy It-Tools service file
+      copy:
+        src: it-tools-service.yaml
+        dest: /tmp/it-tools-service.yaml
+        mode: '0644'
+
+    - name: Copy Calibre Web deployment file
+      copy:
+        src: calibreweb.yaml
+        dest: /tmp/calibreweb.yaml
+        mode: '0644'
+
+    - name: Copy It-Tools deployment file
+      copy:
+        src: it-tools.yaml
+        dest: /tmp/it-tools.yaml
+        mode: '0644'
+
+    - name: Create namespace "project"
+      command: kubectl create namespace project
+      ignore_errors: true
+
+    - name: Apply Kubernetes calibreweb service
+      command: kubectl apply -f /tmp/calibreweb-service.yaml
+      ignore_errors: true
+
+    - name: Apply Kubernetes it-tools service
+      command: kubectl apply -f /tmp/it-tools-service.yaml
+      ignore_errors: true
+
+    - name: Apply Kubernetes calibreweb deployment
+      command: kubectl apply -f /tmp/calibreweb.yaml
+
+    - name: Apply Kubernetes it-tools deployment
+      command: kubectl apply -f /tmp/it-tools.yaml

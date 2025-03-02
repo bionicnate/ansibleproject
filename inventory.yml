@@ -1,0 +1,11 @@
+all:
+  hosts:
+    local:
+      ansible_host: localhost
+      ansible_connection: local
+      ansible_user: devops-23
+    vm:
+      ansible_host: "{{ vm_ip }}" #34.171.26.52
+      ansible_conection: ssh
+      ansible_user: nsvenkerud
+      ansible_become_user: root

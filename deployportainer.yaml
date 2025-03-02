@@ -1,0 +1,40 @@
+- hosts: all
+  become: yes
+  tasks:
+
+#    - name: Copy portainer agent service file
+#      copy:
+#        src: portaineragent-service.yaml
+#        dest: /tmp/portaineragent-service.yaml
+#        mode: '0644'
+#
+#    - name: Copy portainer agent deployment file
+#      copy:
+#        src: portaineragent.yaml
+#        dest: /tmp/portaineragent.yaml
+#        mode: '0644'
+
+    - name: Create namespace "portainer"
+      command: kubectl create namespace portainer
+      ignore_errors: true
+
+#    - name: Apply Kubernetes portainer agent service
+#      command: kubectl apply -f /tmp/portaineragent-service.yaml
+#      ignore_errors: true
+#
+#    - name: Apply Kubernetes portainer deployment
+#      command: kubectl apply -f /tmp/portaineragent.yaml
+
+#    - name: Install portainer docker container
+#      docker_container:
+#        name: portainer
+#        image: portainer/portainer-ce:latest
+#        ports:
+#          - "0:9000"
+#        volumes:
+#          - "/var/run/docker.sock:/var/run/docker.sock"
+#          - "portainer_data:/data"
+#        restart_policy: always
+
+    - name: Install portainer agent
+      command: kubectl apply -f https://downloads.portainer.io/ce2-27/portainer-agent-k8s-nodeport.yaml
